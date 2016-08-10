@@ -1,4 +1,4 @@
 # Algorithms-leaning
-学习算法过程中写的一些习题小Demo，以及自己写的一些API~
+Make some exercises from the book. And implements some API by myself.
 
-学习的书籍：[《算法》](http://algs4.cs.princeton.edu/home/)
+The Book：[《Algorithms Fourth Edition》](http://algs4.cs.princeton.edu/home/)
