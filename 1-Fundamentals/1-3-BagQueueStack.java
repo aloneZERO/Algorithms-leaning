@@ -2,6 +2,7 @@ package com.leo.fundamentals;
 
 import java.util.Iterator;
 
+import com.leo.api.collection.LinkedList;
 import com.leo.api.collection.LinkedListQueue;
 import com.leo.api.collection.LinkedListStack;
 import com.leo.api.collection.ResizingArrayStack;
@@ -25,7 +26,26 @@ public class Capter3 {
 //		testMyStack();
 //		testMyLinkedListStack();
 //		testMyLinkedListQueue();
-		completeParenthese();
+//		completeParenthese();
+		testLinkedList();
+		
+	}
+	
+	/**
+	 * 链表操作练习
+	 */
+	public static void testLinkedList() {
+		LinkedList<String> list = new LinkedList<>();
+		while(!StdIn.isEmpty()) {
+			String item = StdIn.readString();
+			if(item.equals("end")) break;
+			else list.insert(item);
+		}
+		list.print();
+//		list.deleteEnd();
+//		list.delete(3);
+		list.removeAllKey("3");
+		list.print();
 		
 	}
 	
