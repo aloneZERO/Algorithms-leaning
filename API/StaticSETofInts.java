@@ -29,17 +29,36 @@ public class StaticSETofInts {
 			int mid = le + (ri-le)/2;
 			if(key< a[mid]) ri = mid - 1;
 			else if(key> a[mid]) le = mid + 1;
-			else return mid;
+			else {
+				while(mid>0 && a[--mid]==key); // 排除 mid 左边出现重复 key
+				return mid+1;
+			}
 		}
 		return -1;
 	}
 	
 	/**
-	 * 判断key是否在整数集合中
+	 * 判断 key 是否在整数集合中
 	 * @param key
 	 * @return
 	 */
 	public boolean contains(int key) {
 		return this.rank(key)!= -1;
+	}
+	
+	/**
+	 * 找出给定键的出现次数
+	 * @param key
+	 * @return 给定键的出现次数
+	 */
+	public int howMany(int key) {
+	    int cnt = 0;
+	    int k = rank(key);     // logN
+	    int temp = k;
+	    while(k>=0&&a[k--]==key)   // 左边重复的 key 个数包含当前
+	    	cnt++;
+	    while(temp>=0&&temp<a.length-1&&a[++temp]==key)  // 右边重复的 key 个数
+	        cnt++;
+	    return cnt;
 	}
 }

@@ -1,5 +1,9 @@
 package com.leo.fundamentals;
 
+import java.util.Arrays;
+
+import com.leo.api.BinarySearch;
+import com.leo.api.StaticSETofInts;
 import com.leo.api.ThreeSum;
 
 import edu.princeton.cs.algs4.StdRandom;
@@ -28,9 +32,36 @@ public class Capter4 {
 		/*for(int i=1000; i<=10000; i+=1000) {
 			testStopwatch(i);
 		}*/
+//		threeSumRatio();
 		
-		threeSumRatio();
+		int[] a = {1,1,2,4,4,4,4,5,6,6};
+		int[] b = {3,3,4,4,5,6,6,6,7,8};
+		@SuppressWarnings("unused")
+		int index = BinarySearch.rank(a, 4);
+//		System.out.println(index);
 		
+		StaticSETofInts intSet = new StaticSETofInts(a);
+		int n = intSet.howMany(4);
+//		System.out.println(n);
+		
+		printCommonElem(a, b, 10);
+		
+	}
+	
+	/**
+	 * 有序打印给定的两个数组中的所有公共元素(数组元素个数均为 N)
+	 * @param a
+	 * @param b
+	 */
+	public static void printCommonElem(int[] a,int[] b,int N) {
+		Arrays.sort(a);
+		Arrays.sort(b);
+		int last = Integer.MIN_VALUE; // 保存上次查询的元素，用于避免重复键的重复打印
+		for(int i=0; i< N; i++) {
+			if(BinarySearch.rank(a, b[i])>0&&b[i]!=last)
+				System.out.print(b[i]+" ");
+			last = b[i];
+		}
 	}
 	
 	/**
