@@ -1,6 +1,7 @@
 package com.leo.api.collection;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 
 /**
@@ -8,7 +9,7 @@ import java.util.Iterator;
  * @author leo
  *
  */
-public class LinkedList<Item> {
+public class LinkedList<Item> implements Iterable<Item> {
 	private Node first; // 表头
 	private int N; // 元素数量
 	
@@ -18,11 +19,11 @@ public class LinkedList<Item> {
 	}
 	
 	/**
-	 * 返回链表头结点
-	 * @return
+	 * 初始化链表
 	 */
-	public Node getFirst() {
-		return this.first;
+	public LinkedList() {
+		this.first = null;
+		this.N = 0;
 	}
 	
 	/**
@@ -48,7 +49,7 @@ public class LinkedList<Item> {
 	 * @return
 	 */
 	public Item deleteEnd() {
-		if(isEmpty()) return null;
+		if(this.isEmpty()) throw new NoSuchElementException();
 		Node head = first;
 		Node aim = null;
 		while(head.next != null) {
@@ -71,7 +72,7 @@ public class LinkedList<Item> {
 			for(int i=1; i<k-1; i++)
 				head = head.next;
 			head.next = head.next.next;
-		}
+		} else throw new NoSuchElementException();
 	}
 	
 	/**
@@ -126,6 +127,7 @@ public class LinkedList<Item> {
 	 * 返回一个迭代器
 	 * @return
 	 */
+	@Override
 	public Iterator<Item> iterator() {
 		return new ListIterator();
 	}
@@ -138,11 +140,12 @@ public class LinkedList<Item> {
 		}
 		@Override
 		public Item next() {
+			if(!hasNext()) throw new NoSuchElementException();
 			Item item = current.item;
 			current = current.next;
 			return item;
 		}
 		@Override
-		public void remove() {}
+		public void remove() { throw new UnsupportedOperationException(); }
 	}
 }

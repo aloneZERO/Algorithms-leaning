@@ -1,6 +1,7 @@
 package com.leo.api.collection;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * 先进先出队列（链表实现）
@@ -19,6 +20,15 @@ public class LinkedListQueue<Item> implements Iterable<Item> {
 	private class Node {
 		Item item;
 		Node next;
+	}
+	
+	/**
+	 * 初始化队列
+	 */
+	public LinkedListQueue() {
+		this.first = null;
+		this.last = null;
+		this.N = 0;
 	}
 	
 	/**
@@ -56,17 +66,30 @@ public class LinkedListQueue<Item> implements Iterable<Item> {
 	 * @return
 	 */
 	public Item dequeue() {
+		if(this.isEmpty()) throw new NoSuchElementException("Queue underflow");
 		Item item = first.item;
 		first = first.next;
-		if(this.isEmpty()) last=null;
 		N--;
+		if(this.isEmpty()) last = null; // 避免对象游离
 		return item;
 	}
+	
+	/**
+	 * 返回该队列的字符串形式
+	 */
+	@Override
+	public String toString() {
+        StringBuilder s = new StringBuilder();
+        for (Item item : this)
+            s.append(item + " ");
+        return s.toString();
+    }
 	
 	/**
 	 * 返回一个迭代器
 	 * @return
 	 */
+	@Override
 	public Iterator<Item> iterator() {
 		return new QueueIterator();
 	}
@@ -79,11 +102,12 @@ public class LinkedListQueue<Item> implements Iterable<Item> {
 		}
 		@Override
 		public Item next() {
+			if(!hasNext()) throw new NoSuchElementException();
 			Item item = current.item;
 			current = current.next;
 			return item;
 		}
 		@Override
-		public void remove() {}
+		public void remove() { throw new UnsupportedOperationException(); }
 	}
 }

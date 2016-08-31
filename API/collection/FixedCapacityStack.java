@@ -1,13 +1,14 @@
 package com.leo.api.collection;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * 定容栈
  * @author leo
  *
  */
-public class FixedCapacityStack<Item> {
+public class FixedCapacityStack<Item> implements Iterable<Item> {
 	private Item[] items;
 	private int N; // size
 	
@@ -33,6 +34,7 @@ public class FixedCapacityStack<Item> {
 	 * @return
 	 */
 	public Item pop() {
+		if(this.isEmpty()) throw new NoSuchElementException("FixedCapacityStack underflow");
 		Item item =  items[--N];
 		items[N] = null; // 避免对象游离
 		return item;
@@ -42,6 +44,7 @@ public class FixedCapacityStack<Item> {
 	 * @return
 	 */
 	public Item peek() {
+		if(this.isEmpty()) throw new NoSuchElementException("FixedCapacityStack underflow");
 		return items[N-1];
 	}
 	
@@ -73,6 +76,7 @@ public class FixedCapacityStack<Item> {
 	 * 返回一个自己定制的迭代器
 	 * @return
 	 */
+	@Override
 	public Iterator<Item> iterator() {
 		return new ReverseArrayIterator();
 	}
@@ -90,10 +94,11 @@ public class FixedCapacityStack<Item> {
 		}
 		@Override
 		public Item next() {
+			if(!hasNext()) throw new NoSuchElementException();
 			return items[--i];
 		}
 		@Override
-		public void remove() {}
+		public void remove() { throw new UnsupportedOperationException(); }
 	}
 }
 

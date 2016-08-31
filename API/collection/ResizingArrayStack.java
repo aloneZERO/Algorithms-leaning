@@ -1,6 +1,7 @@
 package com.leo.api.collection;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * 下压栈(LIFO)
@@ -11,7 +12,7 @@ import java.util.Iterator;
  * @author leo
  *
  */
-public class ResizingArrayStack<Item> {
+public class ResizingArrayStack<Item> implements Iterable<Item> {
 	@SuppressWarnings("unchecked")
 	private Item[] items = (Item[]) new Object[1];
 	private int N; // size
@@ -31,6 +32,7 @@ public class ResizingArrayStack<Item> {
 	 * @return
 	 */
 	public Item pop() {
+		if(this.isEmpty()) throw new NoSuchElementException("ResizingArrayStack underflow");
 		Item item =  items[--N];
 		items[N] = null; // 避免对象游离
 		if(N>0 && N==items.length/4) 
@@ -42,6 +44,7 @@ public class ResizingArrayStack<Item> {
 	 * @return
 	 */
 	public Item peek() {
+		if(this.isEmpty()) throw new NoSuchElementException("ResizingArrayStack underflow");
 		return items[N-1];
 	}
 	
@@ -79,6 +82,7 @@ public class ResizingArrayStack<Item> {
 	 * 返回一个自己定制的迭代器
 	 * @return
 	 */
+	@Override
 	public Iterator<Item> iterator() {
 		return new ReverseArrayIterator();
 	}
@@ -96,9 +100,10 @@ public class ResizingArrayStack<Item> {
 		}
 		@Override
 		public Item next() {
+			if(!hasNext()) throw new NoSuchElementException();
 			return items[--i];
 		}
 		@Override
-		public void remove() {}
+		public void remove() { throw new UnsupportedOperationException(); }
 	}
 }

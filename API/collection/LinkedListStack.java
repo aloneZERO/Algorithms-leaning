@@ -1,6 +1,7 @@
 package com.leo.api.collection;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * 下压堆栈(链表实现)
@@ -22,6 +23,14 @@ public class LinkedListStack<Item> implements Iterable<Item> {
 	public class Node {
 		Item item;
 		Node next;
+	}
+	
+	/**
+	 * 初始化栈
+	 */
+	public LinkedListStack() {
+		this.first = null;
+		this.N = 0;
 	}
 	
 	/**
@@ -58,6 +67,7 @@ public class LinkedListStack<Item> implements Iterable<Item> {
 	 * @return
 	 */
 	public Item pop() {
+		if (isEmpty()) throw new NoSuchElementException("Stack underflow");
 		Item item = first.item;
 		first = first.next;
 		N--;
@@ -68,13 +78,26 @@ public class LinkedListStack<Item> implements Iterable<Item> {
 	 * @return
 	 */
 	public Item peek() {
+		if(isEmpty()) throw new NoSuchElementException("Stack underflow");
 		return first.item;
 	}
+	
+	/**
+	 * 返回该栈的字符串形式
+	 */
+	@Override
+	public String toString() {
+        StringBuilder s = new StringBuilder();
+        for (Item item : this)
+            s.append(item + " ");
+        return s.toString();
+    }
 	
 	/**
 	 * 返回一个迭代器
 	 * @return
 	 */
+	@Override
 	public Iterator<Item> iterator() {
 		return new ListIterator();
 	}
@@ -87,11 +110,12 @@ public class LinkedListStack<Item> implements Iterable<Item> {
 		}
 		@Override
 		public Item next() {
+			if(!hasNext()) throw new NoSuchElementException();
 			Item item = current.item;
 			current = current.next;
 			return item;
 		}
 		@Override
-		public void remove() {}
+		public void remove() { throw new UnsupportedOperationException();}
 	}
 }
