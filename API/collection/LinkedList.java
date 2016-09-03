@@ -13,9 +13,13 @@ public class LinkedList<Item> implements Iterable<Item> {
 	private Node first; // 表头
 	private int N; // 元素数量
 	
-	public class Node {
+	private class Node {
 		Item item;
 		Node next;
+		public Node(Item item) {
+			this.item = item;
+			this.next = null;
+		}
 	}
 	
 	/**
@@ -30,11 +34,9 @@ public class LinkedList<Item> implements Iterable<Item> {
 	 * 插入元素
 	 */
 	public void insert(Item item) {
-		Node newNode = new Node();
-		newNode.item = item;
+		Node newNode = new Node(item);
 		if(isEmpty()) {
-			first = new Node();
-			first.item = item;
+			first = new Node(item);
 		}else {
 			Node head = first;
 			while(head.next!=null)

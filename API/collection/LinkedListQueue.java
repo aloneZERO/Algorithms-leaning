@@ -20,6 +20,10 @@ public class LinkedListQueue<Item> implements Iterable<Item> {
 	private class Node {
 		Item item;
 		Node next;
+		public Node(Item item) {
+			this.item = item;
+			this.next = null;
+		}
 	}
 	
 	/**
@@ -53,9 +57,7 @@ public class LinkedListQueue<Item> implements Iterable<Item> {
 	 */
 	public void enqueue(Item item) {
 		Node oldlast = last;
-		last = new Node();
-		last.item = item;
-		last.next = null;
+		last = new Node(item);
 		if(this.isEmpty()) first = last;
 		else               oldlast.next = last;
 		N++;

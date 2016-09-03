@@ -17,6 +17,11 @@ public class DoubleLinkedList<Item> implements Iterable<Item> {
 		Node pre; // 前结点
 		Node next; // 后结点
 		Item item; // 数据域
+		public Node(Item item) { // 初始化结点
+			this.item = item;
+			this.next = null;
+			this.pre = null;
+		}
 	}
 	
 	public static void main(String[] args) {
@@ -31,7 +36,6 @@ public class DoubleLinkedList<Item> implements Iterable<Item> {
 //			System.out.print(dlist.removeFirst()+" ");
 			System.out.print(dlist.removeLast()+" ");
 		}
-		System.out.println();
 	}
 	
 	/**
@@ -77,16 +81,11 @@ public class DoubleLinkedList<Item> implements Iterable<Item> {
 	 */
 	public void addLast(Item item) {
 		if(this.isEmpty()) {
-			last = new Node();
-			last.item = item;
-			last.next = null;
-			last.pre = null;
+			last = new Node(item);
 			first = last;
 		}else {
 			Node oldlast = last;
-			last = new Node();
-			last.item = item;
-			last.next = null;
+			last = new Node(item);
 			last.pre = oldlast;
 			oldlast.next = last;
 		}
@@ -99,17 +98,12 @@ public class DoubleLinkedList<Item> implements Iterable<Item> {
 	 */
 	public void addFirst(Item item) {
 		if(this.isEmpty()) {
-			first = new Node();
-			first.item = item;
-			first.next = null;
-			first.pre = null;
+			first = new Node(item);
 			last = first;
 		} else {
 			Node oldfirst = first;
-			first = new Node();
-			first.item = item;
+			first = new Node(item);
 			first.next = oldfirst;
-			first.pre = null;
 			oldfirst.pre = first;
 		}
 		N++;
@@ -121,16 +115,11 @@ public class DoubleLinkedList<Item> implements Iterable<Item> {
 	 */
 	public void add(Item item) {
 		if(this.isEmpty()) {
-			first = new Node();
-			first.item = item;
-			first.next = null;
-			first.pre = null;
+			first = new Node(item);
 			last = first;
 		}else {
 			Node oldlast = last;
-			last = new Node();
-			last.item = item;
-			last.next = null;
+			last = new Node(item);
 			last.pre = oldlast;
 			oldlast.next = last;
 		}

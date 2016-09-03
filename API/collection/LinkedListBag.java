@@ -15,6 +15,10 @@ public class LinkedListBag<Item> implements Iterable<Item> {
 	private class Node {
 		Item item;
 		Node next;
+		public Node(Item item) {
+			this.item = item;
+			this.next = null;
+		}
 	}
 	
 	/**
@@ -31,8 +35,7 @@ public class LinkedListBag<Item> implements Iterable<Item> {
 	 */
 	public void add(Item item) {
 		Node oldfirst = first;
-		first = new Node();
-		first.item = item;
+		first = new Node(item);
 		first.next = oldfirst;
 		N++;
 	}
